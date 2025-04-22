@@ -1,0 +1,69 @@
+- name: Setup Local Environment for DevOps Demo
+  hosts: localhost
+  connection: local
+  become: false
+  vars:
+    app_name: DevOpsDemo
+    app_dir: "{{ ansible_env.HOME }}/{{ app_name }}"
+    dotnet_version: "7.0"
+    production_dir: "{{ app_dir }}/production"
+    blue_dir: "{{ production_dir }}/blue"
+    green_dir: "{{ production_dir }}/green"
+    active_deployment: "{{ production_dir }}/active"
+    
+  tasks:
+    - name: Install required packages
+      become: true
+      apt:
+        name:
+          - apt-transport-https
+          - dotnet-sdk-{{ dotnet_version }}
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+      
+    - name: Create application directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "{{ app_dir }}"
+        - "{{ production_dir }}"
+        - "{{ blue_dir }}"
+        - "{{ green_dir }}"
+        
+    - name: Create symbolic link for active deployment
+      file:
+        src: "{{ blue_dir }}"
+        dest: "{{ active_deployment }}"
+        state: link
+        force: yes
+      
+    - name: Clone repository
+      git:
+        repo: https://github.com/yourusername/{{ app_name }}.git
+        dest: "{{ app_dir }}/repo"
+        clone: yes
+        update: yes
+        
+    - name: Build application
+      command:
+        cmd: dotnet build
+        chdir: "{{ app_dir }}/repo"
+        
+    - name: Run tests
+      command:
+        cmd: dotnet test
+        chdir: "{{ app_dir }}/repo"
+        
+    - name: Publish application
+      command:
+        cmd: dotnet publish -c Release -o "{{ app_dir }}/build"
+        chdir: "{{ app_dir }}/repo"
+      
+    - name: Deploy to initial environment (blue)
+      synchronize:
+        src: "{{ app_dir }}/build/"
+        dest: "{{ blue_dir }}/"
+        delete: yes
