@@ -167,15 +167,13 @@ cd scripts
 ![Screenshot 2025-04-21 024110](https://github.com/user-attachments/assets/f2bf4cb1-3ab1-4963-8510-6df2d7047157)
 
 
-## Presentation Guidelines
+## Evaluation Criteria:
 
-When presenting this project, be prepared to explain:
+
 - The DevOps principles applied in the project
 - The CI/CD pipeline workflow
 - The Blue-Green deployment strategy
 - Infrastructure as Code implementation
 - Advantages of the implemented approach
 
-## License
 
-This project is for educational purposes only.
