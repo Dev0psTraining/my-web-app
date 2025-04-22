@@ -44,7 +44,7 @@ This project implements a complete CI/CD pipeline:
 ## Folder Structure
 
 ```
-DevOpsDemo/
+my-web-app/
 ├── .github/
 │   └── workflows/
 │       └── ci-cd.yml          # GitHub Actions workflow
@@ -54,7 +54,7 @@ DevOpsDemo/
 │   ├── deploy.sh              # Deployment script
 │   └── health_check.sh        # Health monitoring script
 ├── src/
-│   └── DevOpsDemo/
+│   └── my-web-app/
 │       ├── Controllers/
 │       │   └── HomeController.cs
 │       ├── Models/
@@ -76,13 +76,13 @@ DevOpsDemo/
 │       │   ├── js/
 │       │   └── lib/
 │       ├── Program.cs
-│       └── DevOpsDemo.csproj
+│       └── my-web-app.csproj
 ├── tests/
-│   └── DevOpsDemo.Tests/
+│   └── my-web-app.Tests/
 │       ├── HomeControllerTests.cs
 │       ├── MessageServiceTests.cs
-│       └── DevOpsDemo.Tests.csproj
-└── DevOpsDemo.sln
+│       └── my-web-app.Tests.csproj
+└── my-web-app.sln
 ```
 
 ## Setup and Deployment
@@ -91,8 +91,8 @@ DevOpsDemo/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/DevOpsDemo.git
-   cd DevOpsDemo
+   git clone https://github.com/yourusername/my-web-app.git
+   cd my-web-app
    ```
 
 2. Set up the local environment using Ansible:
@@ -103,9 +103,9 @@ DevOpsDemo/
 
 3. Build and test the application:
    ```bash
-   cd ../src/DevOpsDemo
+   cd ../src/my-web-app
    dotnet build
-   dotnet test ../../tests/DevOpsDemo.Tests
+   dotnet test ../../tests/my-web-app.Tests
    ```
 
 ### Deployment Process
@@ -164,7 +164,8 @@ cd scripts
 
 ## Project Workflow Diagram
 
-![DevOps Pipeline Workflow](workflow_diagram.png)
+![Screenshot 2025-04-21 024110](https://github.com/user-attachments/assets/f2bf4cb1-3ab1-4963-8510-6df2d7047157)
+
 
 ## Presentation Guidelines
 
